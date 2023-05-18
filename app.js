@@ -16,6 +16,7 @@ app.get("/", (req, res) => {
       { title: "product2", content: "content2" },
       { title: "product3", content: "content3" },
     ],
+    title: "Aladin",
   });
 });
 

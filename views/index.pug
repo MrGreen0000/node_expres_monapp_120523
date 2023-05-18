@@ -1,39 +1,7 @@
-<!DOCTYPE html>
-html
-    head
-        title Pug 
-    body
-        ul
-            li Liste 1 
-            li Liste 2 
-            li Liste 3 
-            li Liste 4
-        
-        input(
-        type="checkbox" 
-        name="maChekbox" 
-        checked
-        )
+extends layout.pug  
 
-        input(type="button", value="Valider")
-
-        .container 
-            .content
-                p #{name}
-                if authenticated 
-                    p je suis connecté
-                else 
-                    je ne suis pas connecté
-                
-                case friends 
-                    when 0
-                        span you have no friend 
-                    when 1
-                        span you have one friend 
-                    default 
-                        span you have #{friends} friends 
-                
-                each product in products
-                    .product
-                        h4= product.title
-                        p #{product.content}
+block content 
+    h1 je suis le content
+    - for (let x = 0; x < 3; x++)
+        li élément
+    p= title    
