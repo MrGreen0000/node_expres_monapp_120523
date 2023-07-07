@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 
 app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "pug");
+app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
   res.render("index", {
@@ -20,4 +20,10 @@ app.get("/", (req, res) => {
   });
 });
 
-app.listen(5000);
+const server = app.listen(5000, () => {
+  const port = server.address().port;
+  const link = `http://localhost:${port}`;
+  console.log(
+    `Le serveur est en cours d'exécution sur le port <a href="${link}" target="_blank">${port}</a>`
+  );
+});

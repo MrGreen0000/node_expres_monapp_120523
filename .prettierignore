@@ -1,0 +1,4 @@
+# .prettierignore
+
+# Exclure les fichiers EJS
+*.ejs

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr" xml:lang="fr">
+  <head>
+    <title>Mon title</title>
+  </head>
+  <body>
+    <%- include('topBar') -%>
+    <h1>Hello world ! <%= name %></h1>
+    <% if (authenticated) { %>
+    <h1>Je suis connecté</h1>
+    <% } else { %>
+    <h1>Je ne suis pas connecté</h1>
+    <% } %> <% products.forEach(function(product){ %>
+    <div class="product">
+      <h1><%= product.title %></h1>
+      <p><%= product.content %></p>
+    </div>
+    <% }) %>
+  </body>
+</html>
