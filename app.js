@@ -6,24 +6,26 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-app.get("/", (req, res) => {
-  res.render("index", {
-    name: "Jean",
+const getCurrentUser = (req, res, next) => {
+  req.user = {
+    name: "toto",
     authenticated: true,
-    friends: 11,
-    products: [
-      { title: "product1", content: "content1" },
-      { title: "product2", content: "content2" },
-      { title: "product3", content: "content3" },
-    ],
-    title: "Aladin",
-  });
+  };
+  next();
+};
+const isAuthenticated = (req, res, next) => {
+  if (req.user.authenticated) {
+    console.log("user ok");
+  } else {
+    console.log("user ko ");
+  }
+  next();
+};
+
+app.use("/foo", getCurrentUser, isAuthenticated);
+
+app.get("/foo", (req, res) => {
+  res.render("index");
 });
 
-const server = app.listen(5000, () => {
-  const port = server.address().port;
-  const link = `http://localhost:${port}`;
-  console.log(
-    `Le serveur est en cours d'exécution sur le port <a href="${link}" target="_blank">${port}</a>`
-  );
-});
+const server = app.listen(3000);
