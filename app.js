@@ -9,23 +9,27 @@ app.set("view engine", "ejs");
 const getCurrentUser = (req, res, next) => {
   req.user = {
     name: "toto",
-    authenticated: true,
+    authenticated: false,
   };
   next();
 };
 const isAuthenticated = (req, res, next) => {
   if (req.user.authenticated) {
     console.log("user ok");
+    next();
   } else {
-    console.log("user ko ");
+    next("route");
   }
-  next();
 };
 
-app.use("/foo", getCurrentUser, isAuthenticated);
+// app.use("/foo", getCurrentUser, isAuthenticated);
+
+app.get("/foo", getCurrentUser, isAuthenticated, (req, res) => {
+  res.render("index");
+});
 
 app.get("/foo", (req, res) => {
-  res.render("index");
+  res.sendStatus("403");
 });
 
 const server = app.listen(3000);
