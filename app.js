@@ -9,7 +9,7 @@ app.set("view engine", "ejs");
 const getCurrentUser = (req, res, next) => {
   req.user = {
     name: "toto",
-    authenticated: false,
+    authenticated: true,
   };
   next();
 };
@@ -22,14 +22,14 @@ const isAuthenticated = (req, res, next) => {
   }
 };
 
-// app.use("/foo", getCurrentUser, isAuthenticated);
+app.use("/foo", getCurrentUser, isAuthenticated);
 
 app.get("/foo", getCurrentUser, isAuthenticated, (req, res) => {
   res.render("index");
 });
 
 app.get("/foo", (req, res) => {
-  res.sendStatus("403");
+  res.sendStatus(403);
 });
 
-const server = app.listen(3000);
+app.listen(3000);
