@@ -6,30 +6,22 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-const getCurrentUser = (req, res, next) => {
-  req.user = {
-    name: "toto",
-    authenticated: true,
-  };
-  next();
-};
-const isAuthenticated = (req, res, next) => {
-  if (req.user.authenticated) {
-    console.log("user ok");
-    next();
-  } else {
-    next("route");
+app.get("/public/images/image.jpg", (req, res) => {
+  const filePath = path.join(__dirname, "public/images/image.jpg");
+  try {
+    if (fs.existsSync(filePath)) {
+      res.sendFile(filePath);
+    } else {
+      res.status(404).send("Fichier non trouvé");
+    }
+  } catch (error) {
+    console.error("Erreur lors de l'envoie du fichier: ", error);
+    res.status(500).send("Erreur interne du serveur");
   }
-};
-
-app.use("/foo", getCurrentUser, isAuthenticated);
-
-app.get("/foo", getCurrentUser, isAuthenticated, (req, res) => {
-  res.render("index");
 });
 
-app.get("/foo", (req, res) => {
-  res.sendStatus(403);
+app.get("/", (req, res) => {
+  res.render("index");
 });
 
 app.listen(3000);
