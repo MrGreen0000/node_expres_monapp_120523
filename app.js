@@ -12,32 +12,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("tiny"));
 
-app.param(["userId", "companyId"], (req, res, next, value, name) => {
-  // console.log({
-  //   value,
-  //   name,
-  // });
-  const user = {
-    id: value,
-    name: "Jean",
-  };
-  console.log("in fn");
-  req.user = user;
-  next();
-});
-
-app.get("/user/:userId/:companyId", (req, res) => {
-  // console.log(req.params);
-  console.log(req.user);
-  res.end();
-});
+app
+  .route("/user/userId", (req, res, next) => {
+    next();
+  })
+  .get((req, res) => {
+    res.send("user");
+  })
+  .put((req, res) => {
+    res.send("user");
+  })
+  .delete((req, res) => {
+    res.send("user");
+  });
 
 app.get("/", (req, res) => {
-  res.render("index");
-});
-
-app.post("/", (req, res) => {
-  console.log(req.body);
   res.render("index");
 });
 
