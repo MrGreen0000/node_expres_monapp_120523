@@ -12,8 +12,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("tiny"));
 
-app.get(["/foo", "/index"], (req, res) => {
-  console.log("match");
+app.param(["userId", "companyId"], (req, res, next, value, name) => {
+  // console.log({
+  //   value,
+  //   name,
+  // });
+  const user = {
+    id: value,
+    name: "Jean",
+  };
+  console.log("in fn");
+  req.user = user;
+  next();
+});
+
+app.get("/user/:userId/:companyId", (req, res) => {
+  // console.log(req.params);
+  console.log(req.user);
   res.end();
 });
 
