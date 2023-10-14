@@ -12,19 +12,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("tiny"));
 
-app
-  .route("/user/userId", (req, res, next) => {
-    next();
-  })
-  .get((req, res) => {
-    res.send("user");
-  })
-  .put((req, res) => {
-    res.send("user");
-  })
-  .delete((req, res) => {
-    res.send("user");
-  });
+app.all("/user", (req, res) => {
+  res.end();
+});
 
 app.get("/", (req, res) => {
   res.render("index");
