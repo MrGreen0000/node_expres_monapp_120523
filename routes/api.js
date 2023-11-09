@@ -1,8 +1,8 @@
 const express = require("express");
+const chapters = require("./chapters");
+
 const router = express.Router();
 
-router.get("/users", (rq, res) => {
-  res.json([{ name: "jean" }]);
-});
+router.use("/chapters", chapters);
 
 module.exports = router;
