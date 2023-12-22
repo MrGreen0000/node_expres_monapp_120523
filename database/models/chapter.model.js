@@ -5,16 +5,12 @@ const chapterSchema = schema(
   {
     title: {
       type: String,
-      required: [true, "Le titre est requis"],
-      minlength: [3, "Trop court"],
-      maxlength: [3, "Trop long"],
+      required: [true, "On doit preciser un titre"],
     },
     difficulty: {
       type: Number,
-      min: 1,
-      max: 10,
     },
-    nbrOfLesson: { type: Number, required: true },
+    nbrOfLesson: { type: Number, required: [true, "Hello"] },
     index: Number,
     active: Boolean,
   },

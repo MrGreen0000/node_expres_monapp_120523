@@ -17,6 +17,9 @@ router.post("/", (req, res) => {
       res.redirect("/");
     })
     .catch((err) => {
+      const errors = Object.keys(err.errors).map(
+        (key) => err.errors[key].message
+      );
       console.log(
         util.inspect(err, {
           compact: true,
@@ -25,7 +28,7 @@ router.post("/", (req, res) => {
           colors: true,
         })
       );
-      res.status(400).render("index");
+      res.status(400).render("index", { errors });
     });
 });
 
